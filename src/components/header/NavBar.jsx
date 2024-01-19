@@ -12,7 +12,10 @@ import {
   HeadphonesOutlined as HeadphonesOutlinedIcon,
   MenuBookOutlined as MenuBookOutlinedIcon,
 } from "@mui/icons-material";
-
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Drawer from "@mui/material/Drawer";
+// import List from "@mui/material/List";
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -23,6 +26,21 @@ const NavBar = () => {
     setAnchorEl(null);
   };
   const theme = useTheme();
+  const [state, setState] = useState({
+    right: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
   return (
     <Container
       sx={{
@@ -68,18 +86,32 @@ const NavBar = () => {
           }}
         >
           <MenuItem onClick={handleClose}>
-            {" "}
-            <MenuBookOutlinedIcon /> Books
+            <ListItemIcon>
+              <HeadphonesOutlinedIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Audio Books</ListItemText>
           </MenuItem>
+
           <MenuItem onClick={handleClose}>
-            {" "}
-            <HeadphonesOutlinedIcon /> Audio Books
+            <ListItemIcon>
+              <MenuBookOutlinedIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Books</ListItemText>
           </MenuItem>
         </Menu>
       </Box>
-      <IconButton>
+      <IconButton onClick={toggleDrawer("right", true)}>
         <MenuIcon />
       </IconButton>
+
+      <Drawer
+        anchor={"right"}
+        open={state["right"]}
+        onClose={toggleDrawer("right", false)}
+        sx={{ width: "100%" }}
+      >
+        sdsdsds
+      </Drawer>
     </Container>
   );
 };
