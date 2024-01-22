@@ -7,6 +7,7 @@ import Hero from "./components/hero/Hero";
 import "swiper/css";
 import "swiper/css/pagination";
 import Icons from "./components/hero/Icons";
+import Footer from "./components/footer/Footer";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -19,6 +20,7 @@ function App() {
         <NavBar />
         <Hero />
         <Icons />
+        <Footer />
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
