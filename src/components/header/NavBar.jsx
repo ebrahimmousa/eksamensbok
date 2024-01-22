@@ -15,6 +15,7 @@ import {
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Drawer from "@mui/material/Drawer";
+import Links from "./Links";
 // import List from "@mui/material/List";
 const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -110,7 +111,10 @@ const NavBar = () => {
         onClose={toggleDrawer("right", false)}
         sx={{ width: "100%" }}
       >
-        sdsdsds
+        <Links title={"Home"} />
+        <Links title={"Products"} />
+        <Links title={"About Us"} />
+        <Links title={"Contact Us"} />
       </Drawer>
     </Container>
   );
