@@ -6,6 +6,7 @@ import Hero from "./components/hero/Hero";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
+import Icons from "./components/hero/Icons";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -17,6 +18,7 @@ function App() {
         <Header />
         <NavBar />
         <Hero />
+        <Icons />
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

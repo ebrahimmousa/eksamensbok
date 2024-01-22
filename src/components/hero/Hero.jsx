@@ -8,17 +8,36 @@ const Hero = () => {
     <Container>
       <div>
         <Swiper
+          //   loop={true}
           pagination={{
             dynamicBullets: true,
           }}
           modules={[Pagination]}
           className="mySwiper"
         >
-          <SwiperSlide>
-            <img src=".\src\Images\image1.jpg" alt="img1"></img>
+          <SwiperSlide className="parent-slider">
+            <Box
+              sx={{
+                display: "flex",
+                overflow: "hidden",
+                borderRadius: "15px",
+                height: "400px",
+              }}
+            >
+              <img src=".\src\Images\image1.jpg" alt="img1"></img>
+            </Box>{" "}
           </SwiperSlide>
           <SwiperSlide>
-            <img src=".\src\Images\image2.jpg" alt="img2"></img>
+            <Box
+              sx={{
+                display: "flex",
+                overflow: "hidden",
+                borderRadius: "15px",
+                height: "400px",
+              }}
+            >
+              <img src=".\src\Images\image2.jpg" alt="img1"></img>
+            </Box>{" "}
           </SwiperSlide>
         </Swiper>
       </div>

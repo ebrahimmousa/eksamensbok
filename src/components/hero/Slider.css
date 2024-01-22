@@ -20,3 +20,8 @@
     height: 100%;
     object-fit: cover;
   }
+
+  /* @media (max-width: 600px) {
+    .parent-slider img {
+
+display: none;  } } */
