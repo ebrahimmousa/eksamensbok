@@ -52,7 +52,6 @@ const NavBar = () => {
     >
       <Box>
         <Button
-          className="border"
           id="basic-button"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"

@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import Icons from "./components/hero/Icons";
 import Footer from "./components/footer/Footer";
+import Main from "./components/main/main";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -19,6 +20,7 @@ function App() {
         <Header />
         <NavBar />
         <Hero />
+        <Main />
         <Icons />
         <Footer />
       </ThemeProvider>
