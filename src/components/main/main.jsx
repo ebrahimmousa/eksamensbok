@@ -9,6 +9,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
+import { useGetproductByNameQuery } from "../Redux/product";
 const Main = () => {
   const [alignment, setAlignment] = React.useState("left");
 
@@ -16,6 +17,10 @@ const Main = () => {
     setAlignment(newAlignment);
   };
   const theme = useTheme();
+
+  const { data, error, isLoading } = useGetproductByNameQuery(
+    "products?populate=*"
+  );
   return (
     <Container sx={{ mt: 5 }}>
       <Stack

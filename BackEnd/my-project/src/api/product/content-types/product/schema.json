@@ -4,7 +4,8 @@
   "info": {
     "singularName": "product",
     "pluralName": "products",
-    "displayName": "product"
+    "displayName": "product",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -28,12 +29,12 @@
       "required": true
     },
     "productImage": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": true,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "Category": {
       "type": "enumeration",
@@ -41,6 +42,10 @@
         "Books",
         "Audio Books"
       ]
+    },
+    "productRating": {
+      "type": "decimal",
+      "required": true
     }
   }
 }
