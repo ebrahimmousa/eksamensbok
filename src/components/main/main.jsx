@@ -20,8 +20,9 @@ import { useGetproductByNameQuery } from "../Redux/product";
 const Main = () => {
   const [alignment, setAlignment] = React.useState("left");
 
-  const handleAlignment = (event, newAlignment) => {
-    setAlignment(newAlignment);
+  const handleAlignment = (event, newValue) => {
+    setAlignment(newValue);
+    setmyData(newValue);
   };
   const theme = useTheme();
 
@@ -31,7 +32,7 @@ const Main = () => {
 
   const [myData, setmyData] = useState(allProductsAPI);
   const { data, error, isLoading } = useGetproductByNameQuery(myData);
-  const [clickedProduct, setclickedProduct] = useState({});
+  // const [clickedProduct, setclickedProduct] = useState({});
   if (isLoading) {
     return (
       <Box sx={{ py: 11, textAlign: "center" }}>
@@ -93,7 +94,7 @@ const Main = () => {
             <ToggleButton
               sx={{ color: theme.palette.text.primary }}
               className="myButton"
-              value="left"
+              value={allProductsAPI}
               aria-label="left aligned"
             >
               All Books{" "}
@@ -101,7 +102,7 @@ const Main = () => {
             <ToggleButton
               sx={{ mx: "16px !important", color: theme.palette.text.primary }}
               className="myButton"
-              value="center"
+              value={booksCatergoryAPI}
               aria-label="centered"
             >
               Books{" "}
@@ -109,7 +110,7 @@ const Main = () => {
             <ToggleButton
               sx={{ color: theme.palette.text.primary }}
               className="myButton"
-              value="right"
+              value={AudioCatergoryAPI}
               aria-label="right aligned"
             >
               Audio Books{" "}
