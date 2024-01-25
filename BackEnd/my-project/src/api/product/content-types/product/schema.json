@@ -36,11 +36,11 @@
         "images"
       ]
     },
-    "Category": {
+    "category": {
       "type": "enumeration",
       "enum": [
-        "Books",
-        "Audio Books"
+        "books",
+        "Audio"
       ]
     },
     "productRating": {

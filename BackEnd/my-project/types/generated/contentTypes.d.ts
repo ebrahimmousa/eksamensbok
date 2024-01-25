@@ -379,7 +379,7 @@ export interface ApiProductProduct extends Schema.CollectionType {
     bookAuthor: Attribute.String & Attribute.Required;
     description: Attribute.Text & Attribute.Required;
     productImage: Attribute.Media & Attribute.Required;
-    Category: Attribute.Enumeration<['Books', 'Audio Books']>;
+    category: Attribute.Enumeration<['books', 'Audio']>;
     productRating: Attribute.Decimal & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

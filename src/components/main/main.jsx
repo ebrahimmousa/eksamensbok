@@ -1,5 +1,12 @@
-import React from "react";
-import { Box, Container, Rating, Stack, Typography } from "@mui/material";
+import React, { useState } from "react";
+import {
+  Box,
+  CircularProgress,
+  Container,
+  Rating,
+  Stack,
+  Typography,
+} from "@mui/material";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { useTheme } from "@emotion/react";
@@ -18,9 +25,40 @@ const Main = () => {
   };
   const theme = useTheme();
 
-  const { data, error, isLoading } = useGetproductByNameQuery(
-    "products?populate=*"
-  );
+  const allProductsAPI = "products?populate=*";
+  const booksCatergoryAPI = "products?populate=*&filters[category][$eq]=books";
+  const AudioCatergoryAPI = "products?populate=*&filters[category][$eq]=Audio";
+
+  const [myData, setmyData] = useState(allProductsAPI);
+  const { data, error, isLoading } = useGetproductByNameQuery(myData);
+  const [clickedProduct, setclickedProduct] = useState({});
+  if (isLoading) {
+    return (
+      <Box sx={{ py: 11, textAlign: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container
+        sx={{
+          py: 11,
+          textAlign: "center",
+        }}
+      >
+        <Typography variant="h6">
+          {
+            // @ts-ignore
+            error.error
+          }
+        </Typography>
+
+        <Typography variant="h6">Please try again later</Typography>
+      </Container>
+    );
+  }
 
   if (data) {
     return (
