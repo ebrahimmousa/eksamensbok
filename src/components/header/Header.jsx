@@ -58,7 +58,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -119,8 +118,6 @@ const Header = () => {
       </div>
 
       <Stack direction={"row"} alignItems={"center"}>
-        <IconButton>{/* <FaceIcon /> */}</IconButton>
-
         <IconButton aria-label="cart">
           <StyledBadge badgeContent={4} color="primary">
             <ShoppingCartIcon />
