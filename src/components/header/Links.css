@@ -1,0 +1,19 @@
+.link-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .link-container:hover {
+    cursor: pointer;
+  }
+  
+  .show-when-hover {
+    position: absolute;
+    top: 100%;
+    min-width: 170px;
+    transform: translateX(-50%);
+    display: none;
+    left: 25%;
+  }
+  
