@@ -24,7 +24,7 @@ const Hero = () => {
                 height: "400px",
               }}
             >
-              <img src=".\src\Images\image1.jpg" alt="img1"></img>
+              <img src=".\src\Images\library.jpg" alt="img1"></img>
             </Box>{" "}
           </SwiperSlide>
           <SwiperSlide>
@@ -36,7 +36,7 @@ const Hero = () => {
                 height: "400px",
               }}
             >
-              <img src=".\src\Images\image2.jpg" alt="img1"></img>
+              <img src=".\src\Images\Library2.jpg" alt="img1"></img>
             </Box>{" "}
           </SwiperSlide>
         </Swiper>

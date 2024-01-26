@@ -17,6 +17,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import { useGetproductByNameQuery } from "../Redux/product";
+
 const Main = () => {
   const [alignment, setAlignment] = React.useState("left");
 
@@ -32,7 +33,6 @@ const Main = () => {
 
   const [myData, setmyData] = useState(allProductsAPI);
   const { data, error, isLoading } = useGetproductByNameQuery(myData);
-  // const [clickedProduct, setclickedProduct] = useState({});
   if (isLoading) {
     return (
       <Box sx={{ py: 11, textAlign: "center" }}>
@@ -72,10 +72,7 @@ const Main = () => {
           gap={3}
         >
           <Box>
-            <Typography variant="h6">Selected Products</Typography>
-            <Typography fontWeight={300} variant="body1">
-              All our new arrivals in an exclusive brand selection
-            </Typography>
+            <Typography variant="h4">Choose A Category</Typography>
           </Box>
           <ToggleButtonGroup
             color="error"

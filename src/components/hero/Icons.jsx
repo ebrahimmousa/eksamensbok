@@ -18,7 +18,7 @@ const CardSection = () => {
       sx={{
         position: "relative",
         zIndex: 1,
-        mt: 10,
+        mt: 0,
         borderRadius: "30px",
         overflow: "hidden",
         bgcolor: theme.palette.mode === "dark" ? "#white" : "#black",

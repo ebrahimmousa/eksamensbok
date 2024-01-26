@@ -15,7 +15,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import FaceIcon from "@mui/icons-material/Face";
+// import FaceIcon from "@mui/icons-material/Face";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
 
@@ -119,9 +119,7 @@ const Header = () => {
       </div>
 
       <Stack direction={"row"} alignItems={"center"}>
-        <IconButton>
-          <FaceIcon />
-        </IconButton>
+        <IconButton>{/* <FaceIcon /> */}</IconButton>
 
         <IconButton aria-label="cart">
           <StyledBadge badgeContent={4} color="primary">
