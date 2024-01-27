@@ -8,6 +8,8 @@ import Icons from "./components/hero/Icons";
 import Footer from "./components/footer/Footer";
 import Main from "./components/main/main";
 import ScrollToTop from "./components/scroll/ScrollToTop";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Contact from "./components/Contact/Contact";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -16,11 +18,23 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Icons />
-        <Header />
-        <Hero />
-        <Main />
-        <Footer />
+        <Router>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Icons />
+                  <Header />
+                  <Hero />
+                  <Main />
+                  <Footer />
+                </>
+              }
+            />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </Router>
         <ScrollToTop />
       </ThemeProvider>
     </ColorModeContext.Provider>

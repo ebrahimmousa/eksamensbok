@@ -1,56 +1,58 @@
-// Footer.jsx
-
 import React from "react";
 import { Box, Button, Typography, TextField } from "@mui/material";
-import "./Footer.css";
-
+import { Link } from "react-router-dom";
 const Footer = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Implement the logic to handle the contact form here
   };
 
   return (
-    <Box className="footer-container">
-      <form onSubmit={handleSubmit} className="form-container">
-        <Typography variant="h5" color="primary">
-          Contact US
-        </Typography>
-        <TextField
-          label="Namn"
-          variant="outlined"
-          size="small"
-          margin="dense"
-          required
-        />
-        <TextField
-          label="E-post"
-          variant="outlined"
-          size="small"
-          margin="dense"
-          required
-        />
-        <TextField
-          label="Meddelande"
-          variant="outlined"
-          size="small"
-          margin="dense"
-          multiline
-          rows={4}
-          required
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          color="secondary"
-          className="button-container"
-        >
-          Skicka
-        </Button>
-      </form>
-      <Typography className="text-container">
+    <Box
+      sx={{
+        mt: "200px",
+        bgcolor: "#2B3445",
+        py: 1.3,
+        borderTopLeftRadius: 8,
+        borderTopRightRadius: 8,
+      }}
+    >
+      <Button
+        component={Link}
+        to="/contact"
+        sx={{
+          mx: 0.5,
+          fontSize: "18px",
+          textTransform: "capitalize",
+          color: "#ff7790",
+          alignItems: "center",
+        }}
+        variant="text"
+        color="primary"
+      >
+        Contact US{" "}
+      </Button>
+      <Typography
+        justifyContent={"center"}
+        display={"flex"}
+        alignItems={"center"}
+        color={"HighlightText"}
+        variant="h6"
+        sx={{ fontSize: 18 }}
+      >
         Designed and developed by
-        <Button variant="text" color="primary">
+        <Button
+          component={Link}
+          to="/"
+          sx={{
+            mx: 0.5,
+            fontSize: "18px",
+            textTransform: "capitalize",
+            color: "#ff7790",
+            alignItems: "center",
+          }}
+          variant="text"
+          color="primary"
+        >
           Ebrahim Mousa
         </Button>
         2024
