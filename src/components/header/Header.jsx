@@ -1,4 +1,6 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { ColorModeContext } from "../../theme";
 import {
   IconButton,
@@ -6,20 +8,16 @@ import {
   Container,
   Stack,
   Typography,
+  InputBase,
+  Button,
 } from "@mui/material";
 import {
   DarkModeOutlined,
   LightModeOutlined,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
-import SearchIcon from "@mui/icons-material/Search";
-import { styled, alpha } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
-// import FaceIcon from "@mui/icons-material/Face";
+import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
-
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -30,66 +28,86 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
+const SearchContainer = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-  justifyContent: "center",
+  border: `1px solid ${theme.palette.primary.main}`,
+  borderRadius: theme.shape.borderRadius,
+  marginLeft: theme.spacing(2),
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
+const SearchInput = styled(InputBase)(({ theme }) => ({
+  marginLeft: theme.spacing(1),
+  flex: 1,
 }));
 
 const Header = () => {
   const colorMode = useContext(ColorModeContext);
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   const theme = useTheme();
+  const [searchedProducts, setSearchedProducts] = useState([]);
+
+  const handleSearch = async () => {
+    try {
+      const result = await fetch(
+        `http://localhost:1337/api/products?populate=*&filters[productName][$regex]=${searchTerm}`
+      );
+
+      if (!result.ok) {
+        console.error("Bad Request:", result.statusText);
+        return;
+      }
+
+      const data = await result.json();
+
+      if (data && data.data) {
+        const filteredProducts = data.data.filter((product) =>
+          product.attributes.productName
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        );
+
+        console.log("Filtered Products:", filteredProducts);
+
+        if (filteredProducts.length > 0) {
+          setSearchedProducts(filteredProducts);
+        } else {
+          console.log("Inga resultat hittades.");
+          setSearchedProducts([]);
+        }
+      } else {
+        console.error("No data received from the API.");
+        setSearchedProducts([]);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setSearchedProducts([]);
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   return (
     <Container sx={{ my: 3, display: "flex", justifyContent: "space-between" }}>
-      <Stack>
-        {/* logo change later */}
-        <ShoppingCartOutlined />
-        <Typography variant="body2">ExamensBok</Typography>
+      <Stack direction={"row"} alignItems={"center"}>
+        <SearchContainer>
+          <SearchInput
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyPress={handleKeyPress}
+          />
+          <Button variant="contained" color="primary" onClick={handleSearch}>
+            Search
+          </Button>
+        </SearchContainer>
       </Stack>
-      <Search>
-        <SearchIconWrapper>
-          <SearchIcon />
-        </SearchIconWrapper>
-        <StyledInputBase
-          placeholder="Search…"
-          inputProps={{ "aria-label": "search" }}
-        />
-      </Search>
       <div>
         {theme.palette.mode === "light" ? (
           <IconButton

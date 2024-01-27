@@ -16,21 +16,6 @@ const Footer = () => {
         borderTopRightRadius: 8,
       }}
     >
-      <Button
-        component={Link}
-        to="/contact"
-        sx={{
-          mx: 0.5,
-          fontSize: "18px",
-          textTransform: "capitalize",
-          color: "#ff7790",
-          alignItems: "center",
-        }}
-        variant="text"
-        color="primary"
-      >
-        Contact US{" "}
-      </Button>
       <Typography
         justifyContent={"center"}
         display={"flex"}
