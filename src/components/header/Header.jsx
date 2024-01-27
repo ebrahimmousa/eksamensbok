@@ -16,8 +16,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 // import FaceIcon from "@mui/icons-material/Face";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
+
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -69,6 +71,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Header = () => {
   const colorMode = useContext(ColorModeContext);
+
   const theme = useTheme();
 
   return (
@@ -116,14 +119,6 @@ const Header = () => {
           </IconButton>
         )}
       </div>
-
-      <Stack direction={"row"} alignItems={"center"}>
-        <IconButton aria-label="cart">
-          <StyledBadge badgeContent={4} color="primary">
-            <ShoppingCartIcon />
-          </StyledBadge>
-        </IconButton>
-      </Stack>
     </Container>
   );
 };

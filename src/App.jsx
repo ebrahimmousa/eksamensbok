@@ -1,4 +1,4 @@
-import Header from "./components/header/header";
+import Header from "./components/header/Header";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Hero from "./components/hero/Hero";
@@ -10,6 +10,7 @@ import Main from "./components/main/main";
 import ScrollToTop from "./components/scroll/ScrollToTop";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Contact from "./components/Contact/Contact";
+import Cart from "./components/cart/Cart";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -33,6 +34,7 @@ function App() {
               }
             />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/Cart" element={<Cart />} />
           </Routes>
         </Router>
         <ScrollToTop />
