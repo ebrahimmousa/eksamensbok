@@ -19,11 +19,12 @@ const Navbar = () => {
           <Button component={Link} to="/" color="inherit">
             Home
           </Button>
-          <Button component={Link} to="/contact" color="inherit">
-            Contact Us
-          </Button>
+
           <Button component={Link} to="/all-products" color="inherit">
             All Products{" "}
+          </Button>
+          <Button component={Link} to="/contact" color="inherit">
+            Contact Us
           </Button>
         </Toolbar>
       </Container>

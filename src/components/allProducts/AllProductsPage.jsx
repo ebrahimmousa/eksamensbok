@@ -32,7 +32,18 @@ const AllProductsPage = () => {
   const theme = useTheme();
   const [cart, setCart] = useState([]);
   const addToCart = (item) => {
-    setCart([...cart, item]);
+    const updatedCart = [...cart];
+    const existingItemIndex = updatedCart.findIndex(
+      (cartItem) => cartItem.id === item.id
+    );
+
+    if (existingItemIndex !== -1) {
+      updatedCart[existingItemIndex].quantity += 1;
+    } else {
+      updatedCart.push({ ...item, quantity: 1 });
+    }
+
+    setCart(updatedCart);
   };
 
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -51,6 +62,82 @@ const AllProductsPage = () => {
 
   const [myData, setmyData] = useState(allProductsAPI);
   const { data, error, isLoading } = useGetproductByNameQuery(myData);
+
+  const renderCart = () => {
+    const totalPrice = cart.reduce(
+      (total, item) => total + item.attributes.productPrice * item.quantity,
+      0
+    );
+
+    return (
+      <div
+        style={{
+          position: "fixed",
+          top: "10px",
+          right: "10px",
+          maxHeight: "80vh",
+          overflowY: "auto",
+          background: "#fff",
+          padding: "20px",
+          borderRadius: "8px",
+          boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+          zIndex: 1,
+        }}
+      >
+        <Typography variant="h5" gutterBottom>
+          Cart:
+        </Typography>
+        {cart.length === 0 ? (
+          <h3>The Shopping Cart is empty</h3>
+        ) : (
+          <ul>
+            {cart.map((item, index) => (
+              <React.Fragment key={item.id}>
+                <li
+                  style={{
+                    marginBottom: "10px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <img
+                    src={`${import.meta.env.VITE_BASE_URL}${
+                      item.attributes.productImage.data[0].attributes.url
+                    }`}
+                    alt={item.attributes.productName}
+                    style={{ width: "50px", marginRight: "10px" }}
+                  />
+                  <div>
+                    <p>
+                      {item.attributes.productName} (x{item.quantity})
+                    </p>
+                    <p>{item.attributes.productPrice * item.quantity} kr</p>
+                    <Button
+                      onClick={() => removeFromCart(item)}
+                      style={{ cursor: "pointer", color: "red" }}
+                    >
+                      🗑️
+                    </Button>
+                  </div>
+                </li>
+                {index < cart.length - 1 && <hr style={{ margin: "8px 0" }} />}
+              </React.Fragment>
+            ))}
+          </ul>
+        )}
+        <Typography variant="h6" style={{ marginTop: "10px" }}>
+          Total: {totalPrice} kr
+        </Typography>
+        <Button variant="contained" color="primary" onClick={handleCheckout}>
+          Checkout
+        </Button>
+      </div>
+    );
+  };
+
+  const handleCheckout = () => {
+    console.log("Checkout clicked");
+  };
 
   if (isLoading) {
     return (
@@ -167,54 +254,7 @@ const AllProductsPage = () => {
             >
               🛒
             </Button>
-            {isCartOpen && (
-              <div
-                style={{
-                  position: "fixed",
-                  top: "270px",
-                  right: "20px",
-                  transform: "translate(-50%, -50%)",
-                  background: "#fff",
-                  padding: "20px",
-                  borderRadius: "8px",
-                  boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-                  zIndex: 1,
-                }}
-              >
-                <h3>The Shopping Cart is empty</h3>
-                <ul>
-                  {cart.map((item) => (
-                    <li
-                      key={item.id}
-                      style={{
-                        marginBottom: "10px",
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <img
-                        src={`${import.meta.env.VITE_BASE_URL}${
-                          item.attributes.productImage.data[0].attributes.url
-                        }`}
-                        alt={item.attributes.productName}
-                        style={{ width: "50px", marginRight: "10px" }}
-                      />
-                      <div>
-                        <p>{item.attributes.productName}</p>
-                        <p>{item.attributes.productPrice} kr</p>
-                        <Button
-                          onClick={() => removeFromCart(item)}
-                          style={{ cursor: "pointer", color: "red" }}
-                        >
-                          🗑️
-                        </Button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
+            {isCartOpen && renderCart()} {/* Render the cart */}
             {data.data.map((item) => {
               return (
                 <Card

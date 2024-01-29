@@ -25,7 +25,6 @@ const CheckoutPage = ({ cart, totalPrice }) => {
 
       console.log("Order details:", orderDetails);
 
-      // Assuming allProductsAPI is correctly defined
       const response = await fetch(allProductsAPI, {
         method: "POST",
         headers: {
@@ -114,12 +113,12 @@ const CheckoutPage = ({ cart, totalPrice }) => {
                     <div>
                       <p>{item.attributes.productName}</p>
                       <p>{item.attributes.productPrice} kr</p>
-                      <Button
+                      <button
                         onClick={() => removeFromCart(item)}
                         style={{ cursor: "pointer", color: "red" }}
                       >
                         🗑️
-                      </Button>
+                      </button>
                     </div>
                   </li>
                 ))}

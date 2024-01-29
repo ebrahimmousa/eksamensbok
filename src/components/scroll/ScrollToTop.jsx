@@ -1,7 +1,7 @@
 import React from "react";
 import { Fab, Zoom, useScrollTrigger } from "@mui/material";
 import { KeyboardArrowUp } from "@mui/icons-material";
-
+import "./scrollToTop.css";
 const ScrollToTop = () => {
   return (
     <Zoom in={useScrollTrigger({ threshold: 500 })}>
@@ -9,7 +9,7 @@ const ScrollToTop = () => {
         onClick={() => window.scrollTo(0, 0)}
         variant="extended"
         size="small"
-        sx={{ position: "fixed", bottom: 33, right: 33 }}
+        className="scrollToTop"
         color="primary"
         aria-label="add"
       >

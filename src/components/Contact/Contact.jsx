@@ -1,20 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Typography, TextField, Button, Container } from "@mui/material";
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
 import Navbar from "../navbar/NavBar";
+import { useNavigate } from "react-router-dom";
 
 const ContactUs = () => {
-  const handleSubmit = (e) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your logic to handle the form submission here
-    console.log("Form submitted!");
+
+    try {
+      const companyEmail = "ebrahim-mousa@hotmail.com";
+
+      if (window.strapi) {
+        await window.strapi.services.email.sendEmail(
+          companyEmail,
+          "Contact Form Submission",
+          `Name: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`
+        );
+
+        console.log("Email sent successfully!");
+      } else {
+        console.error("Strapi is not available.");
+      }
+    } catch (error) {
+      console.error("Error sending email", error);
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Navbar />
-
       <Header />
 
       <Container
@@ -43,6 +71,9 @@ const ContactUs = () => {
               margin="normal"
               required
               fullWidth
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
             />
             <TextField
               label="Email"
@@ -51,6 +82,9 @@ const ContactUs = () => {
               margin="normal"
               required
               fullWidth
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
             />
             <TextField
               label="Message"
@@ -61,6 +95,9 @@ const ContactUs = () => {
               rows={4}
               required
               fullWidth
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
             />
             <Button
               type="submit"
@@ -78,4 +115,5 @@ const ContactUs = () => {
     </Box>
   );
 };
+
 export default ContactUs;
