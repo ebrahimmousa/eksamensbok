@@ -1,8 +1,9 @@
 import React from "react";
-import { Box, Container, Link, Stack, Typography } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "./Slider.css";
+
 const Hero = () => {
   return (
     <Container>

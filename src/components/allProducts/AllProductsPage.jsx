@@ -20,6 +20,7 @@ import { useGetproductByNameQuery } from "../Redux/product";
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
 import Navbar from "../navbar/NavBar";
+import { red } from "@mui/material/colors";
 
 const AllProductsPage = () => {
   const [alignment, setAlignment] = useState("left");
@@ -77,7 +78,8 @@ const AllProductsPage = () => {
           right: "10px",
           maxHeight: "80vh",
           overflowY: "auto",
-          background: "#fff",
+          color: "black",
+          background: "beige",
           padding: "20px",
           borderRadius: "8px",
           boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
@@ -254,7 +256,7 @@ const AllProductsPage = () => {
             >
               🛒
             </Button>
-            {isCartOpen && renderCart()} {/* Render the cart */}
+            {isCartOpen && renderCart()}
             {data.data.map((item) => {
               return (
                 <Card

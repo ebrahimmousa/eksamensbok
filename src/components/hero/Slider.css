@@ -8,7 +8,6 @@
     font-size: 18px;
     background: #fff;
    
-    /* Center slide text vertically */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,8 +19,3 @@
     height: 100%;
     object-fit: cover;
   }
-
-  /* @media (max-width: 600px) {
-    .parent-slider img {
-
-display: none;  } } */
