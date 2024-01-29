@@ -34,8 +34,6 @@ const CardSection = () => {
         direction={"row"}
         alignItems={"center"}
       >
-        {/* CHANGE TEXT VIKTIG!!! */}
-
         <MyBox
           icon={<AccountBalanceOutlinedIcon fontSize="large" />}
           title={"Payment"}

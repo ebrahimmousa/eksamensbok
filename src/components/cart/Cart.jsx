@@ -1,34 +1,35 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 
-const Cart = () => {
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: "Item 1", price: 10 },
-    { id: 2, name: "Item 2", price: 15 },
-  ]);
+// const ShoppingCart = () => {
+//   const [cart, setCart] = useState([]);
+//   const [totalPrice, setTotalPrice] = useState(0);
 
-  const getTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + item.price, 0);
-  };
+//   // Functions to add and remove items from the cart
+//   const addToCart = (item) => {
+//     setCart([...cart, item]);
+//     setTotalPrice(totalPrice + item.price);
+//   };
 
-  const removeFromCart = (itemId) => {
-    const updatedCart = cartItems.filter((item) => item.id !== itemId);
-    setCartItems(updatedCart);
-  };
+//   const removeFromCart = (item) => {
+//     const updatedCart = cart.filter((cartItem) => cartItem.id !== item.id);
+//     setCart(updatedCart);
+//     setTotalPrice(totalPrice - item.price);
+//   };
 
-  return (
-    <div>
-      <h2>Shopping Cart</h2>
-      <ul>
-        {cartItems.map((item) => (
-          <li key={item.id}>
-            {item.name} - ${item.price}
-            <button onClick={() => removeFromCart(item.id)}>Remove</button>
-          </li>
-        ))}
-      </ul>
-      <p>Total Price: ${getTotalPrice()}</p>
-    </div>
-  );
-};
+//   return (
+//     <div>
+//       <h2>Shopping Cart</h2>
+//       <ul>
+//         {cart.map((item) => (
+//           <li key={item.id}>
+//             {item.name} - ${item.price}
+//             <button onClick={() => removeFromCart(item)}>Remove</button>
+//           </li>
+//         ))}
+//       </ul>
+//       <p>Total Price: ${totalPrice}</p>
+//     </div>
+//   );
+// };
 
-export default Cart;
+// export default ShoppingCart;

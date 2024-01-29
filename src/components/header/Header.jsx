@@ -7,7 +7,6 @@ import {
   useTheme,
   Container,
   Stack,
-  Typography,
   InputBase,
   Button,
 } from "@mui/material";
@@ -28,74 +27,74 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-const SearchContainer = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  border: `1px solid ${theme.palette.primary.main}`,
-  borderRadius: theme.shape.borderRadius,
-  marginLeft: theme.spacing(2),
-}));
+// const SearchContainer = styled("div")(({ theme }) => ({
+//   display: "flex",
+//   alignItems: "center",
+//   border: `1px solid ${theme.palette.primary.main}`,
+//   borderRadius: theme.shape.borderRadius,
+//   marginLeft: theme.spacing(2),
+// }));
 
-const SearchInput = styled(InputBase)(({ theme }) => ({
-  marginLeft: theme.spacing(1),
-  flex: 1,
-}));
+// const SearchInput = styled(InputBase)(({ theme }) => ({
+//   marginLeft: theme.spacing(1),
+//   flex: 1,
+// }));
 
 const Header = () => {
   const colorMode = useContext(ColorModeContext);
-  const [searchTerm, setSearchTerm] = useState("");
+  // const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
   const theme = useTheme();
-  const [searchedProducts, setSearchedProducts] = useState([]);
+  // const [searchedProducts, setSearchedProducts] = useState([]);
 
-  const handleSearch = async () => {
-    try {
-      const result = await fetch(
-        `http://localhost:1337/api/products?populate=*&filters[productName][$regex]=${searchTerm}`
-      );
+  // const handleSearch = async () => {
+  //   try {
+  //     const result = await fetch(
+  //       `http://localhost:1337/api/products?populate=*&filters[productName][$regex]=${searchTerm}`
+  //     );
 
-      if (!result.ok) {
-        console.error("Bad Request:", result.statusText);
-        return;
-      }
+  //     if (!result.ok) {
+  //       console.error("Bad Request:", result.statusText);
+  //       return;
+  //     }
 
-      const data = await result.json();
+  //     const data = await result.json();
 
-      if (data && data.data) {
-        const filteredProducts = data.data.filter((product) =>
-          product.attributes.productName
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase())
-        );
+  //     if (data && data.data) {
+  //       const filteredProducts = data.data.filter((product) =>
+  //         product.attributes.productName
+  //           .toLowerCase()
+  //           .includes(searchTerm.toLowerCase())
+  //       );
 
-        console.log("Filtered Products:", filteredProducts);
+  //       console.log("Filtered Products:", filteredProducts);
 
-        if (filteredProducts.length > 0) {
-          setSearchedProducts(filteredProducts);
-        } else {
-          console.log("Inga resultat hittades.");
-          setSearchedProducts([]);
-        }
-      } else {
-        console.error("No data received from the API.");
-        setSearchedProducts([]);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      setSearchedProducts([]);
-    }
-  };
+  //       if (filteredProducts.length > 0) {
+  //         setSearchedProducts(filteredProducts);
+  //       } else {
+  //         console.log("Inga resultat hittades.");
+  //         setSearchedProducts([]);
+  //       }
+  //     } else {
+  //       console.error("No data received from the API.");
+  //       setSearchedProducts([]);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //     setSearchedProducts([]);
+  //   }
+  // };
 
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      handleSearch();
-    }
-  };
+  // const handleKeyPress = (event) => {
+  //   if (event.key === "Enter") {
+  //     handleSearch();
+  //   }
+  // };
 
   return (
     <Container sx={{ my: 3, display: "flex", justifyContent: "space-between" }}>
-      <Stack direction={"row"} alignItems={"center"}>
+      {/* <Stack direction={"row"} alignItems={"center"}>
         <SearchContainer>
           <SearchInput
             placeholder="Search..."
@@ -107,8 +106,9 @@ const Header = () => {
             Search
           </Button>
         </SearchContainer>
-      </Stack>
+      </Stack> */}
       <div>
+        Light/Night Mode
         {theme.palette.mode === "light" ? (
           <IconButton
             onClick={() => {

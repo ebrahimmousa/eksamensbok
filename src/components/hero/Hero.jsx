@@ -8,7 +8,8 @@ const Hero = () => {
     <Container>
       <div>
         <Swiper
-          //   loop={true}
+          autoplay={{ delay: 2000 }}
+          loop={true}
           pagination={{
             dynamicBullets: true,
           }}

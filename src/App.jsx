@@ -10,9 +10,10 @@ import Main from "./components/main/main";
 import ScrollToTop from "./components/scroll/ScrollToTop";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Contact from "./components/Contact/Contact";
-import Cart from "./components/cart/Cart";
+// import Cart from "./components/cart/Cart";
 import Navbar from "./components/navbar/NavBar";
 import AllProductsPage from "./components/allProducts/AllProductsPage";
+import CheckoutPage from "./components/checkout/CheckOutPage";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -27,9 +28,11 @@ function App() {
               path="/"
               element={
                 <>
-                  <Icons />
-                  <Header />
                   <Navbar />
+                  <Header />
+
+                  <Icons />
+
                   <Hero />
                   <Main />
                   <Footer />
@@ -37,8 +40,9 @@ function App() {
               }
             />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/Cart" element={<Cart />} />
+            {/* <Route path="/Cart" element={<Cart />} /> */}
             <Route path="/all-products" element={<AllProductsPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
           </Routes>
         </Router>
         <ScrollToTop />
