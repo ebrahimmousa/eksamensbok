@@ -5,6 +5,7 @@ import { productApi } from './product';
 
 export const store = configureStore({
   reducer: {
+    // cart: cartReducer,
     [productApi.reducerPath]: productApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

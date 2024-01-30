@@ -1,26 +1,23 @@
 import React, { useState } from "react";
-import {
-  Box,
-  CircularProgress,
-  Container,
-  Rating,
-  Stack,
-  Typography,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { useTheme } from "@emotion/react";
-
+import CircularProgress from "@mui/material/CircularProgress";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
 import { useGetproductByNameQuery } from "../Redux/product";
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
 import Navbar from "../navbar/NavBar";
-import { red } from "@mui/material/colors";
+import Cart from "../cart/Cart";
 
 const AllProductsPage = () => {
   const [alignment, setAlignment] = useState("left");
@@ -64,79 +61,6 @@ const AllProductsPage = () => {
   const [myData, setmyData] = useState(allProductsAPI);
   const { data, error, isLoading } = useGetproductByNameQuery(myData);
 
-  const renderCart = () => {
-    const totalPrice = cart.reduce(
-      (total, item) => total + item.attributes.productPrice * item.quantity,
-      0
-    );
-
-    return (
-      <div
-        style={{
-          position: "fixed",
-          top: "10px",
-          right: "10px",
-          maxHeight: "80vh",
-          overflowY: "auto",
-          color: "black",
-          background: "beige",
-          padding: "20px",
-          borderRadius: "8px",
-          boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-          zIndex: 1,
-        }}
-      >
-        <Typography variant="h5" gutterBottom>
-          Cart:
-        </Typography>
-        {cart.length === 0 ? (
-          <h3>The Shopping Cart is empty</h3>
-        ) : (
-          <ul>
-            {cart.map((item, index) => (
-              <React.Fragment key={item.id}>
-                <li
-                  style={{
-                    marginBottom: "10px",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <img
-                    src={`${import.meta.env.VITE_BASE_URL}${
-                      item.attributes.productImage.data[0].attributes.url
-                    }`}
-                    alt={item.attributes.productName}
-                    style={{ width: "50px", marginRight: "10px" }}
-                  />
-                  <div>
-                    <p>
-                      {item.attributes.productName} (x{item.quantity})
-                    </p>
-                    <p>{item.attributes.productPrice * item.quantity} kr</p>
-                    <Button
-                      onClick={() => removeFromCart(item)}
-                      style={{ cursor: "pointer", color: "red" }}
-                    >
-                      🗑️
-                    </Button>
-                  </div>
-                </li>
-                {index < cart.length - 1 && <hr style={{ margin: "8px 0" }} />}
-              </React.Fragment>
-            ))}
-          </ul>
-        )}
-        <Typography variant="h6" style={{ marginTop: "10px" }}>
-          Total: {totalPrice} kr
-        </Typography>
-        <Button variant="contained" color="primary" onClick={handleCheckout}>
-          Checkout
-        </Button>
-      </div>
-    );
-  };
-
   const handleCheckout = () => {
     console.log("Checkout clicked");
   };
@@ -179,9 +103,7 @@ const AllProductsPage = () => {
         }}
       >
         <Navbar />
-
         <Header />
-
         <Container sx={{ flex: 1, mt: 5 }}>
           <Stack
             direction={"row"}
@@ -256,7 +178,13 @@ const AllProductsPage = () => {
             >
               🛒
             </Button>
-            {isCartOpen && renderCart()}
+            {isCartOpen && (
+              <Cart
+                cart={cart}
+                removeFromCart={removeFromCart}
+                handleCheckout={handleCheckout}
+              />
+            )}
             {data.data.map((item) => {
               return (
                 <Card
@@ -291,7 +219,7 @@ const AllProductsPage = () => {
                         {item.attributes.productPrice}kr
                       </Typography>
                     </Stack>
-                    <Typography variant="body2" component="text.secondary">
+                    <Typography variant="body2" component="div">
                       {item.attributes.description}
                     </Typography>
                   </CardContent>

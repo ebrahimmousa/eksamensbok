@@ -40,7 +40,6 @@ function App() {
               }
             />
             <Route path="/contact" element={<Contact />} />
-            {/* <Route path="/Cart" element={<Cart />} /> */}
             <Route path="/all-products" element={<AllProductsPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
           </Routes>
