@@ -13,10 +13,8 @@ const ContactUs = () => {
   });
 
   const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const companyEmail = "ebrahim-mousa@hotmail.com";
 
@@ -26,7 +24,6 @@ const ContactUs = () => {
           "Contact Form Submission",
           `Name: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`
         );
-
         console.log("Email sent successfully!");
       } else {
         console.error("Strapi is not available.");
@@ -44,7 +41,6 @@ const ContactUs = () => {
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Navbar />
       <Header />
-
       <Container
         component="main"
         maxWidth="md"
@@ -110,7 +106,6 @@ const ContactUs = () => {
           </Box>
         </form>
       </Container>
-
       <Footer />
     </Box>
   );

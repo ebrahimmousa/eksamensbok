@@ -1,11 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { useTheme } from "@emotion/react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -13,187 +13,138 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
+import { useTheme } from "@emotion/react";
 import { useGetproductByNameQuery } from "../Redux/product";
+import Cart from "../cart/Cart";
+import { addToCart } from "../Redux/cartSlice";
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
 import Navbar from "../navbar/NavBar";
-import Cart from "../cart/Cart";
 
 const AllProductsPage = () => {
-  const [alignment, setAlignment] = useState("left");
-
-  const handleAlignment = (event, newValue) => {
-    setAlignment(newValue);
-    setmyData(newValue);
-  };
-
+  const dispatch = useDispatch();
   const theme = useTheme();
-  const [cart, setCart] = useState([]);
-  const addToCart = (item) => {
-    const updatedCart = [...cart];
-    const existingItemIndex = updatedCart.findIndex(
-      (cartItem) => cartItem.id === item.id
-    );
-
-    if (existingItemIndex !== -1) {
-      updatedCart[existingItemIndex].quantity += 1;
-    } else {
-      updatedCart.push({ ...item, quantity: 1 });
-    }
-
-    setCart(updatedCart);
-  };
-
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const toggleCart = () => {
-    setIsCartOpen(!isCartOpen);
-  };
-
-  const removeFromCart = (item) => {
-    const updatedCart = cart.filter((cartItem) => cartItem.id !== item.id);
-    setCart(updatedCart);
-  };
-
-  const allProductsAPI = "products?populate=*";
-  const booksCategoryAPI = "products?populate=*&filters[category][$eq]=books";
-  const audioCategoryAPI = "products?populate=*&filters[category][$eq]=Audio";
-
-  const [myData, setmyData] = useState(allProductsAPI);
+  const cart = useSelector((state) => state.cart);
+  const [myData, setmyData] = useState("products?populate=*");
   const { data, error, isLoading } = useGetproductByNameQuery(myData);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const handleCheckout = () => {
-    console.log("Checkout clicked");
-  };
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+      }}
+    >
+      <Navbar />
+      <Header />
+      <Container sx={{ flex: 1, mt: 5 }}>
+        <Stack
+          direction={"row"}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+          flexWrap={"wrap"}
+          gap={3}
+        >
+          <Box>
+            <Typography variant="h4">Choose A Category</Typography>
+          </Box>
 
-  if (isLoading) {
-    return (
-      <Box sx={{ py: 11, textAlign: "center" }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
-
-  if (error) {
-    return (
-      <Container
-        sx={{
-          py: 11,
-          textAlign: "center",
-        }}
-      >
-        <Typography variant="h6">
-          {
-            // @ts-ignore
-            error.error
-          }
-        </Typography>
-
-        <Typography variant="h6">Please try again later</Typography>
-      </Container>
-    );
-  }
-
-  if (data) {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          minHeight: "100vh",
-        }}
-      >
-        <Navbar />
-        <Header />
-        <Container sx={{ flex: 1, mt: 5 }}>
-          <Stack
-            direction={"row"}
-            alignItems={"center"}
-            justifyContent={"space-between"}
-            flexWrap={"wrap"}
-            gap={3}
+          <ToggleButtonGroup
+            color="error"
+            value={myData}
+            exclusive
+            onChange={(event, newValue) => setmyData(newValue)}
+            aria-label="text alignment"
           >
-            <Box>
-              <Typography variant="h4">Choose A Category</Typography>
+            <ToggleButton
+              sx={{ color: theme.palette.text.primary }}
+              className="myButton"
+              value="products?populate=*"
+              aria-label="left aligned"
+            >
+              All Books
+            </ToggleButton>
+
+            <ToggleButton
+              sx={{
+                mx: "16px !important",
+
+                color: theme.palette.text.primary,
+              }}
+              className="myButton"
+              value="products?populate=*&filters[category][$eq]=books"
+              aria-label="centered"
+            >
+              Books
+            </ToggleButton>
+
+            <ToggleButton
+              sx={{ color: theme.palette.text.primary }}
+              className="myButton"
+              value="products?populate=*&filters[category][$eq]=Audio"
+              aria-label="right aligned"
+            >
+              Audio Books
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Stack>
+
+        <Stack
+          direction={"row"}
+          flexWrap={"wrap"}
+          justifyContent={"space-between"}
+          sx={{ marginBottom: "60px" }}
+        >
+          <Button
+            onClick={() => setIsCartOpen(!isCartOpen)}
+            sx={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              fontSize: "1.5rem",
+              position: "fixed",
+              top: "10px",
+              right: "10px",
+            }}
+          >
+            <Cart />
+          </Button>
+
+          {isLoading && (
+            <Box sx={{ py: 11, textAlign: "center" }}>
+              <CircularProgress />
             </Box>
-            <ToggleButtonGroup
-              color="error"
-              value={alignment}
-              exclusive
-              onChange={handleAlignment}
-              aria-label="text alignment"
+          )}
+
+          {error && (
+            <Container
               sx={{
-                ".mui-selected": {
-                  border: "1px solid rgba (233, 69, 96, 0.5) !important",
-                  color: "#e94560",
-                  bgcolor: "initial",
-                },
+                py: 11,
+
+                textAlign: "center",
               }}
             >
-              <ToggleButton
-                sx={{ color: theme.palette.text.primary }}
-                className="myButton"
-                value={allProductsAPI}
-                aria-label="left aligned"
-              >
-                All Books{" "}
-              </ToggleButton>
-              <ToggleButton
-                sx={{
-                  mx: "16px !important",
-                  color: theme.palette.text.primary,
-                }}
-                className="myButton"
-                value={booksCategoryAPI}
-                aria-label="centered"
-              >
-                Books{" "}
-              </ToggleButton>
-              <ToggleButton
-                sx={{ color: theme.palette.text.primary }}
-                className="myButton"
-                value={audioCategoryAPI}
-                aria-label="right aligned"
-              >
-                Audio Books{" "}
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </Stack>
-          <Stack
-            direction={"row"}
-            flexWrap={"wrap"}
-            justifyContent={"space-between"}
-            sx={{ marginBottom: "60px" }}
-          >
-            <Button
-              onClick={toggleCart}
-              sx={{
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                fontSize: "1.5rem",
-                position: "fixed",
-                top: "10px",
-                right: "10px",
-              }}
-            >
-              🛒
-            </Button>
-            {isCartOpen && (
-              <Cart
-                cart={cart}
-                removeFromCart={removeFromCart}
-                handleCheckout={handleCheckout}
-              />
-            )}
-            {data.data.map((item) => {
-              return (
+              <Typography variant="h6">{error.error}</Typography>
+
+              <Typography variant="h6">Please try again later</Typography>
+            </Container>
+          )}
+
+          {data && (
+            <>
+              {data.data.map((item) => (
                 <Card
                   key={item.id}
                   sx={{
                     maxWidth: 333,
+
                     mt: 6,
+
                     ":hover .MuiCardMedia-root ": {
                       scale: "1.1",
+
                       transition: "1s",
                     },
                   }}
@@ -227,7 +178,9 @@ const AllProductsPage = () => {
                     <Button
                       sx={{ textTransform: "capitalize" }}
                       size="small"
-                      onClick={() => addToCart(item)}
+                      onClick={() =>
+                        dispatch(addToCart({ ...item, quantity: 1 }))
+                      }
                     >
                       Add to Cart
                     </Button>
@@ -239,14 +192,14 @@ const AllProductsPage = () => {
                     />
                   </CardActions>
                 </Card>
-              );
-            })}
-          </Stack>
-        </Container>
-        <Footer />
-      </Box>
-    );
-  }
+              ))}
+            </>
+          )}
+        </Stack>
+      </Container>
+      <Footer />
+    </Box>
+  );
 };
 
 export default AllProductsPage;
