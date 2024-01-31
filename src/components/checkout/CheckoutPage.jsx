@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import cartSlice from "../Redux/cartSlice";
+
 const Checkout = () => {
   const cartItems = useSelector((state) => state.cart);
 
@@ -13,8 +13,8 @@ const Checkout = () => {
           <p>Review your order and complete the checkout process.</p>
           {cartItems.map((item) => (
             <div key={item.id}>
-              <p>{item.name}</p>
-              <p>{item.price}</p>
+              <p>{item.attributes.productName}</p>
+              <p>{item.attributes.productPrice}</p>
             </div>
           ))}
           <button onClick={placeOrder}>Place Order</button>

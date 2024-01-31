@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CloseIcon from "@mui/icons-material/Close";
 import { removeFromCart } from "../Redux/cartSlice";
+import { productApi } from "../Redux/product";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ const Cart = () => {
   );
 
   const handleCheckout = () => {
-    dispatch(addToCart(productInfo));
+    dispatch(addToCart(productApi));
     history.push("/checkout");
   };
 
