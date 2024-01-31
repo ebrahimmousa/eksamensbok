@@ -7,9 +7,12 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CloseIcon from "@mui/icons-material/Close";
 import { removeFromCart } from "../Redux/cartSlice";
 import { productApi } from "../Redux/product";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isCartOpen, setIsCartOpen] = React.useState(false);
 
   const toggleCart = () => {
@@ -41,7 +44,7 @@ const Cart = () => {
 
   const handleCheckout = () => {
     dispatch(addToCart(productApi));
-    history.push("/checkout");
+    navigate("/checkout");
   };
 
   return (
@@ -101,11 +104,12 @@ const Cart = () => {
               </Button>
             </div>
           ))}
-
           <Typography color={"black"} variant="h6">
             Total: {totalPrice} kr
           </Typography>
-          <button onClick={handleCheckout}>Checkout</button>
+          <Link to="/checkout" style={{ textDecoration: "none" }}>
+            <button>Checkout</button>
+          </Link>{" "}
         </div>
       )}
     </div>
