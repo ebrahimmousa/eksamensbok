@@ -68,6 +68,7 @@ const Cart = () => {
             background: "beige",
             padding: "10px",
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+            width: "300px",
           }}
         >
           <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -77,7 +78,7 @@ const Cart = () => {
             </IconButton>
           </div>
           {cart.map((item) => (
-            <div key={item.id}>
+            <div key={item.id} style={{ marginBottom: "10px" }}>
               <img
                 src={`${import.meta.env.VITE_BASE_URL}${
                   item.attributes.productImage.data[0].attributes.url
@@ -85,13 +86,15 @@ const Cart = () => {
                 alt={item.attributes.productName}
                 style={{ width: "50px", marginRight: "10px" }}
               />
-              <Typography color={"black"}>
-                {item.attributes.productName}{" "}
-                {item.quantity > 1 && `(x${item.quantity})`}
-              </Typography>
-              <Typography color={"black"}>
-                {item.attributes.productPrice} kr
-              </Typography>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <Typography color={"black"}>
+                  {item.attributes.productName}{" "}
+                  {item.quantity > 1 && `(x${item.quantity})`}
+                </Typography>
+                <Typography color={"black"}>
+                  {item.attributes.productPrice} kr
+                </Typography>
+              </div>
               <Button
                 style={{ cursor: "pointer", color: "red" }}
                 variant="outlined"
@@ -108,8 +111,10 @@ const Cart = () => {
             Total: {totalPrice} kr
           </Typography>
           <Link to="/checkout" style={{ textDecoration: "none" }}>
-            <button>Checkout</button>
-          </Link>{" "}
+            <Button variant="contained" color="primary" fullWidth>
+              Checkout
+            </Button>
+          </Link>
         </div>
       )}
     </div>

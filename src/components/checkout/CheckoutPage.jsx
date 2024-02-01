@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Navbar from "../navbar/NavBar";
 import Footer from "../footer/Footer";
 import CheckoutForm from "./CheckoutForm";
+import Header from "../header/Header";
 
 const stripePromise = loadStripe(
   "pk_test_51Nw5ZcFZHoD1e3i2tCNsG6kJQ18ar9AKxuSHqapIw9WRADSPVoEKZml4pSLrwTnWxIf0zrNiO2gu6nM8wPQzTI4Y00cRzSqrFc"
@@ -26,6 +27,7 @@ const Checkout = () => {
   return (
     <div>
       <Navbar />
+      <Header />
       <div
         style={{
           display: "flex",
@@ -55,6 +57,7 @@ const Checkout = () => {
                     style={{
                       marginBottom: "10px",
                       display: "flex",
+                      flexDirection: "column",
                       alignItems: "center",
                     }}
                   >
@@ -66,18 +69,21 @@ const Checkout = () => {
                       style={{
                         width: "70px",
                         height: "70px",
-                        marginRight: "10px",
+                        marginBottom: "10px",
                       }}
                     />
                     <div style={{ flex: 1 }}>
                       <Typography
                         variant="subtitle1"
-                        style={{ marginRight: "10px" }}
+                        style={{ textAlign: "center", marginBottom: "5px" }}
                       >
                         {item.attributes.productName}
                       </Typography>
 
-                      <Typography variant="subtitle1">
+                      <Typography
+                        variant="subtitle1"
+                        style={{ textAlign: "center" }}
+                      >
                         {item.attributes.productPrice} kr
                       </Typography>
                     </div>

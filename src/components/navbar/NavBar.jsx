@@ -16,16 +16,17 @@ const Navbar = () => {
           >
             ExamensBok
           </Typography>
-          <Button component={Link} to="/" color="inherit">
-            Home
-          </Button>
-
-          <Button component={Link} to="/all-products" color="inherit">
-            All Products{" "}
-          </Button>
-          <Button component={Link} to="/contact" color="inherit">
-            Contact Us
-          </Button>
+          <div sx={{ display: { xs: "none", sm: "block" } }}>
+            <Button component={Link} to="/" color="inherit">
+              Home
+            </Button>
+            <Button component={Link} to="/all-products" color="inherit">
+              All Products
+            </Button>
+            <Button component={Link} to="/contact" color="inherit">
+              Contact Us
+            </Button>
+          </div>
         </Toolbar>
       </Container>
     </AppBar>

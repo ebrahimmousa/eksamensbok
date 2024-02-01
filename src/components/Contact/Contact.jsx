@@ -44,7 +44,23 @@ const ContactUs = () => {
       <Container
         component="main"
         maxWidth="md"
-        sx={{ flex: 1, padding: "40px 20px", textAlign: "center" }}
+        sx={{
+          flex: 1,
+          padding: "40px 20px",
+          textAlign: "center",
+          "@media (max-width:480px)": {
+            padding: "20px 10px",
+          },
+          "@media (min-width:481px) and (max-width:768px)": {
+            padding: "30px 15px",
+          },
+          "@media (min-width:769px) and (max-width:1024px)": {
+            padding: "40px 20px",
+          },
+          "@media (min-width:1025px) and (max-width:1280px)": {
+            padding: "50px 25px",
+          },
+        }}
       >
         <Typography variant="h4" gutterBottom>
           Contact Us

@@ -19,3 +19,39 @@
     height: 100%;
     object-fit: cover;
   }
+
+
+/* Media Query for screens smaller than 480px */
+@media (max-width: 480px) {
+  .parent-slider {
+    height: 300px;
+  }
+}
+
+/* Media Query for screens between 480px and 767px */
+@media (min-width: 481px) and (max-width: 767px) {
+  .parent-slider {
+    height: 350px;
+  }
+}
+
+/* Media Query for screens between 768px and 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .parent-slider {
+    height: 450px;
+  }
+}
+
+/* Media Query for screens between 1024px and 1279px */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .parent-slider {
+    height: 500px;
+  }
+}
+
+/* Media Query for screens larger than 1280px */
+@media (min-width: 1280px) {
+  .parent-slider {
+    height: 550px;
+  }
+}
