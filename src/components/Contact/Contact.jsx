@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Box, Typography, TextField, Button, Container } from "@mui/material";
-import Footer from "../footer/Footer";
-import Header from "../header/Header";
-import Navbar from "../navbar/NavBar";
 import { useNavigate } from "react-router-dom";
+import NavBar from "../navbar/NavBar";
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -12,24 +12,28 @@ const ContactUs = () => {
     message: "",
   });
 
+  const [submissionResult, setSubmissionResult] = useState(null);
+
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const companyEmail = "ebrahim-mousa@hotmail.com";
+      const response = await fetch("http://localhost:1337/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-      if (window.strapi) {
-        await window.strapi.services.email.sendEmail(
-          companyEmail,
-          "Contact Form Submission",
-          `Name: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`
-        );
-        console.log("Email sent successfully!");
+      if (response.ok) {
+        setSubmissionResult("Email sent successfully!");
       } else {
-        console.error("Strapi is not available.");
+        setSubmissionResult("Error sending email");
       }
     } catch (error) {
-      console.error("Error sending email", error);
+      setSubmissionResult("Error sending email: " + error.message);
     }
   };
 
@@ -39,7 +43,7 @@ const ContactUs = () => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-      <Navbar />
+      <NavBar />
       <Header />
       <Container
         component="main"
@@ -68,6 +72,16 @@ const ContactUs = () => {
         <Typography variant="body1" sx={{ marginBottom: 4 }}>
           Feel free to reach out to us using the form below:
         </Typography>
+        {submissionResult && (
+          <Typography
+            variant="body1"
+            color={
+              submissionResult.includes("successfully") ? "success" : "error"
+            }
+          >
+            {submissionResult}
+          </Typography>
+        )}
         <form onSubmit={handleSubmit}>
           <Box
             sx={{

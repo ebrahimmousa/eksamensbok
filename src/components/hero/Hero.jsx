@@ -22,24 +22,22 @@ const Hero = () => {
               sx={{
                 display: "flex",
                 overflow: "hidden",
-                borderRadius: "15px",
                 height: "400px",
               }}
             >
-              <img src=".\src\Images\library.jpg" alt="img1"></img>
-            </Box>{" "}
+              <img src=".\src\Images\Library2.jpg" alt="img2"></img>
+            </Box>
           </SwiperSlide>
           <SwiperSlide>
             <Box
               sx={{
                 display: "flex",
                 overflow: "hidden",
-                borderRadius: "15px",
                 height: "400px",
               }}
             >
-              <img src=".\src\Images\Library2.jpg" alt="img1"></img>
-            </Box>{" "}
+              <img src=".\src\Images\library.jpg" alt="img1"></img>
+            </Box>
           </SwiperSlide>
         </Swiper>
       </div>
