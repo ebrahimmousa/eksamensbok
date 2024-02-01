@@ -75,8 +75,8 @@ const Checkout = () => {
                         style={{ marginRight: "10px" }}
                       >
                         {item.attributes.productName}
-                        {item.quantity > 1 && ` (x${item.quantity})`}
                       </Typography>
+
                       <Typography variant="subtitle1">
                         {item.attributes.productPrice} kr
                       </Typography>
