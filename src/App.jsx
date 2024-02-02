@@ -23,7 +23,6 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-
         <Router>
           <Routes>
             <Route
@@ -31,30 +30,21 @@ function App() {
               element={
                 <>
                   <Navbar />
-
                   <Header />
-
                   <Icons />
-
                   <Hero />
-
                   <Main />
-
                   <Footer />
                 </>
               }
             />
 
             <Route path="/contact" element={<Contact />} />
-
             <Route path="/all-products" element={<AllProductsPage />} />
-
             <Route path="/checkout" element={<CheckoutPage />} />
-
             <Route path="/cart" element={<Cart />} />
           </Routes>
         </Router>
-
         <ScrollToTop />
       </ThemeProvider>
     </ColorModeContext.Provider>
